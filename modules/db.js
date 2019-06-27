@@ -17,6 +17,16 @@ const config2 = {
   multipleStatements: true
 }
 
+const config2 = {
+  host: 'cdb-501hps4o.bj.tencentcdb.com',
+  port: 10158,
+  user: 'root',
+  password: 'hexudong199412',
+  database: 'myblog',
+  multipleStatements: true
+}
+
+
 exports.query = (sql, params, callback) => {
   const connect = mysql.createConnection(config2)
   connect.connect()
