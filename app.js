@@ -100,11 +100,11 @@ app.use('/adminport', admin)
 
 //后台404处理
 let flag2 = true
-// app.use('/admin', (req, res) => {
-//   if (flag2) {
-//     flag2 = false
-//     res.status(404).redirect('/admin/404.html')
-//   }
-// })
+app.use('/admin', (req, res) => {
+  if (flag2) {
+    flag2 = false
+    res.status(404).redirect('/admin/404.html')
+  }
+})
 
 module.exports = app
