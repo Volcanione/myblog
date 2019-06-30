@@ -29,7 +29,7 @@ app.use(
 
 //跨域处理
 const corsOptions = {
-  origin: 'http://192.168.37.84:8082',
+  origin: 'http://127.0.0.1:81',
   credentials: true,
   maxAge: '1728000'
   //这一项是为了跨域专门设置的
