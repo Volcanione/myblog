@@ -19,11 +19,10 @@ const uploader = ({ router, url, field, done: callback }) => {
 
   router.post(url, upload.single(field), (req, res, next) => {
     if (req.file.mimetype.startsWith('image')) {
-      images(req.file.path)
-        .size(1920)
-        .save(req.file.path, {
-          quality: 50
-        })
+      let img = images(req.file.path)
+      img.size(img.width()).save(req.file.path, {
+        quality: 50
+      })
     }
     callback && callback(req, res)
   })
