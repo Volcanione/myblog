@@ -22,6 +22,7 @@ exports.query = (sql, params, callback) => {
   const connect = mysql.createConnection(config2)
   connect.connect()
   connect.query(sql, params, (err, data) => {
+    console.log(err)
     callback && callback(err, data)
   })
   connect.end()

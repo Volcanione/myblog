@@ -62,15 +62,17 @@ layui.define(['form', 'upload', 'common', 'admin', 'upload'], function(
       obj.preview(function(index, file, result) {
         // $('#demo1').attr('src', result); //图片链接（base64）
       })
+      layer.load(0, { shade: 0.3 })
     },
     done: function(res) {
       console.log(res)
-      $('#demo1').attr('src', res.data.src) //图片链接（base64）
-      $('.picUrl').val(res.data.src)
       //如果上传失败
       if (res.code > 0) {
         return layer.msg('上传失败')
       }
+      $('#demo1').attr('src', res.data.src) //图片链接（base64）
+      $('.picUrl').val(res.data.src)
+      layer.closeAll('loading')
       layer.msg(res.msg, { icon: 1, time: 1000 })
       //上传成功
     },

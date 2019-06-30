@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const md5 = require('md5')
 
 const db = require('../../modules/db')
 const sider = require('../../modules/siderNav')
@@ -9,6 +10,15 @@ const manager = require('./manager')
 const adminInfo = require('./adminInfo')
 const user = require('./user')
 const home = require('./home')
+
+// 限制未登录用户权限
+router.use((req, res, next) => {
+  let { url } = req
+  if (!req.session.user && url.indexOf('adminLogin') < 0) {
+    return res.send({ code: 4, msg: '登录已过期，请重新登录' })
+  }
+  next()
+})
 
 //amdin信息
 router.get('/getAdminInfo', (req, res) => {
@@ -32,13 +42,12 @@ router.get('/getAdminInfo', (req, res) => {
 //登录处理
 router.post('/adminLogin', (req, res) => {
   const { username: name, password } = req.body
-
   db.query('select * from admin where username=?', name, (err, data) => {
     if (err) return res.send({ code: 1, msg: '获取数据失败' })
     if (!data.length) {
       return res.send({ code: 1, msg: '账号不存在' })
     }
-    if (password != data[0].password) {
+    if (md5(password) != data[0].password) {
       return res.send({ code: 2, msg: '密码错误' })
     }
 

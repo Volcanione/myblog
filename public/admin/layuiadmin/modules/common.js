@@ -27,11 +27,12 @@ layui.define(function(exports) {
     admin.req({
       url: '/adminport/getAdminInfo',
       done(e) {
+        console.log(e)
         const { code, msg, data } = e
-        if (code === 1) {
+        if (code === 1 || code === 4) {
           return layer.msg(msg, { icon: 0, time: 1000 }, function() {
             console.log(location)
-            if (location.pathname.indexOf('/admin/login.html') === -1) {
+            if (location.pathname.indexOf('/login.html') === -1) {
               location.href = './login.html'
             }
           })
@@ -40,13 +41,12 @@ layui.define(function(exports) {
       }
     })
   }
-  if (getAdmin() === null) {
-    renderAdmin(data => {
-      localStorage.setItem('adminInfo', JSON.stringify(data))
-      const { id, email, call, username } = data
-      $user.text(call ? call : username)
-    })
-  }
+
+  renderAdmin(data => {
+    localStorage.setItem('adminInfo', JSON.stringify(data))
+    const { id, email, call, username } = data
+    $user.text(call ? call : username)
+  })
 
   //退出
   admin.events.logout = function() {
@@ -62,7 +62,6 @@ layui.define(function(exports) {
               '已注销',
               { icon: 1, time: 2000, shade: 0.3 },
               function() {
-                localStorage.removeItem('adminInfo')
                 location.href = '../login.html'
               }
             )
