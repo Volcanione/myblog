@@ -11,7 +11,7 @@
     "cos-nodejs-sdk-v5": "^2.5.9",
     "express": "^4.17.1",
     "express-art-template": "^1.0.1",
-    "express-session": "^1.16.1",
+    "express-session": "^1.17.1",
     "images": "^3.0.2",
     "md5": "^2.2.1",
     "moment": "^2.24.0",
